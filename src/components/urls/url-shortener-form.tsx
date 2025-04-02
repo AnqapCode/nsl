@@ -1,19 +1,24 @@
 "use client";
 
+// * Modules
 import React, { useState } from "react";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UrlFormData, urlSchema } from "@/lib/types";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import { usePathname, useRouter } from "next/navigation";
-import { shortenUrl } from "@/server/actions/urls/shorten-url";
-import { Card, CardContent } from "../ui/card";
 import { AlertTriangle, Copy, QrCode } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { QRCodeModal } from "../modals/qr-code-modal";
 import { toast } from "sonner";
+
+// * UI
+import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { Card, CardContent } from "../ui/card";
+
+// * Local
+import { UrlFormData, urlSchema } from "@/lib/types";
+import { shortenUrl } from "@/server/actions/urls/shorten-url";
+import { QRCodeModal } from "../modals/qr-code-modal";
 import { SignupSuggestionDialog } from "../dialogs/signup-suggestion-dialog";
 
 const UrlShortenerForm = () => {
@@ -80,7 +85,11 @@ const UrlShortenerForm = () => {
           description: response.data.flagReason,
         });
       } else {
-        toast.success("URL shortened successfully");
+        if (!response.success) {
+          toast.error(`${response.error}`);
+        } else {
+          toast.success("URL shortened successfully");
+        }
       }
 
       if (session?.user && pathname.includes("/dashboard")) {
@@ -88,7 +97,11 @@ const UrlShortenerForm = () => {
       }
 
       if (!session?.user) {
-        setShowSignupDialog(true);
+        if (!response.success) {
+          setShowSignupDialog(false);
+        } else {
+          setShowSignupDialog(true);
+        }
       }
     } catch (error) {
       setError("An error occured. Please try again.");
@@ -103,6 +116,9 @@ const UrlShortenerForm = () => {
 
     try {
       await navigator.clipboard.writeText(shortUrl);
+      toast.success("Short Link Copied", {
+        description: "Short link has been copied",
+      });
     } catch (error) {
       console.error(error);
     }

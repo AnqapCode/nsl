@@ -87,7 +87,8 @@ export function LoginForm() {
     try {
       await signIn("github", { callbackUrl: "/dashboard" });
     } catch (error) {
-      console.error(error);
+      console.error("Github login failed: ", error);
+      toast.error("Login gagal. Silakan coba lagi atau gunakan metode lain.");
     } finally {
       setIsLoading(false);
     }

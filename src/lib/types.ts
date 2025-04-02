@@ -28,3 +28,9 @@ export type Url = {
   updatedAt: string;
   clicks: number;
 };
+
+export const checkSchema = z.object({
+  url: z.string().url("Please enter a valid URL"),
+});
+
+export type UrlCheckData = z.infer<typeof checkSchema>;

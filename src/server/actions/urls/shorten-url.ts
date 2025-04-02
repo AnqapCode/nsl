@@ -1,12 +1,15 @@
 "use server";
 
-import { ApiResponse } from "@/lib/types";
-import { ensureHttps, isValidUrl } from "@/lib/utils";
+// * Modules
 import { z } from "zod";
 import { nanoid } from "nanoid";
+import { revalidatePath } from "next/cache";
+
+// * Local
+import { ApiResponse } from "@/lib/types";
+import { ensureHttps, isValidUrl } from "@/lib/utils";
 import { db } from "@/server/db";
 import { urls } from "@/server/db/schema";
-import { revalidatePath } from "next/cache";
 import { auth } from "@/server/auth";
 import { checkUrlSafety } from "./check-url-safety";
 
@@ -80,6 +83,21 @@ export async function shortenUrl(formData: FormData): Promise<
         return {
           success: false,
           error: "Custom code already exists",
+        };
+      }
+      return shortenUrl(formData);
+    }
+
+    // check if the original url already exists
+    const existingOriginalUrl = await db.query.urls.findFirst({
+      where: (urls, { eq }) => eq(urls.originalUrl, originalUrl),
+    });
+
+    if (existingOriginalUrl) {
+      if (validatedFields.data.url) {
+        return {
+          success: false,
+          error: "URL already exists",
         };
       }
       return shortenUrl(formData);
