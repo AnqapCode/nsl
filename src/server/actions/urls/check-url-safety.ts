@@ -147,12 +147,12 @@ export async function checkUrl(formData: FormData): Promise<
       flagReason = safetyCheck.data.reason;
       message = safetyCheck.data.response;
 
-      if (safetyCheck.data.category === "malicious" && safetyCheck.data.confidence > 0.7) {
-        return {
-          success: false,
-          error: "This URL is flagged as malicious",
-        };
-      }
+      // if (safetyCheck.data.category === "malicious" && safetyCheck.data.confidence > 0.7) {
+      //   return {
+      //     success: false,
+      //     error: "This URL is flagged as malicious",
+      //   };
+      // }
     }
 
     revalidatePath("/");

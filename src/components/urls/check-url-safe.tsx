@@ -146,7 +146,7 @@ const CheckUrlSafe = () => {
 
                           <div className="flex items-center gap-2">
                             <div>
-                              <p className="text-sm font-medium text-yellow-800 dark:text-yellow-300">URL yang anda terdeteksi mencurigakan</p>
+                              <p className="text-sm font-medium text-yellow-800 dark:text-yellow-300">URL yang anda inputkan terdeteksi mencurigakan</p>
                               <p className="text-xs text-start text-yellow-700 dark:text-yellow-400 mt-1">{messageInfo.message}</p>
                               {/* {messageInfo.reason && (
                               <p className="text-sm mt-2 text-start text-yellow-600 dark:text-yellow-400">

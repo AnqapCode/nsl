@@ -11,20 +11,20 @@ import "next-auth/jwt";
 // extend the types to include role
 declare module "next-auth" {
   interface User {
-    role?: "user" | "admin";
+    role?: "user" | "admin" | "owner";
   }
 
   interface Session {
     user: {
       id: string;
-      role?: "user" | "admin";
+      role?: "user" | "admin" | "owner";
     } & DefaultSession["user"];
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    role?: "user" | "admin";
+    role?: "user" | "admin" | "owner";
   }
 }
 

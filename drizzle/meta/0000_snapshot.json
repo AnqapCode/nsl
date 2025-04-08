@@ -1,5 +1,5 @@
 {
-  "id": "882446c0-61aa-47e6-bddc-62c1d567f626",
+  "id": "e10f1d7e-8291-4108-92fb-e47e00703d50",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -352,7 +352,8 @@
       "schema": "public",
       "values": [
         "user",
-        "admin"
+        "admin",
+        "owner"
       ]
     }
   },
