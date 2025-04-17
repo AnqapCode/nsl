@@ -86,9 +86,6 @@ export function LoginForm() {
     setIsLoading(true);
     try {
       await signIn("github", { callbackUrl: "/dashboard" });
-      toast.success("Sign in successfully", {
-        description: "You have been signed in successfully.",
-      });
     } catch (error) {
       console.error("Github login failed: ", error);
       toast.error("Login gagal. Silakan coba lagi atau gunakan metode lain.");
@@ -101,9 +98,6 @@ export function LoginForm() {
     setIsLoading(true);
     try {
       await signIn("google", { callbackUrl: "/dashboard" });
-      toast.success("Sign in successfully", {
-        description: "You have been signed in successfully.",
-      });
     } catch (error) {
       console.error(error);
       toast.error("Login gagal. Silakan coba lagi atau gunakan metode lain.");

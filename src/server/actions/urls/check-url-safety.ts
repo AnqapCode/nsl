@@ -77,6 +77,8 @@ export async function checkUrlSafety(url: string): Promise<ApiResponse<UrlSafety
     4. Apakah situs ini berisi konten yang tidak pantas (dewasa, kekerasan, dll.)?
     5. Apakah domain ini mencurigakan atau baru didaftarkan?
 
+    saya menggunakan domain ini "${process.env.NEXT_PUBLIC_APP_URL}" untuk menjalankan website ini, ini sudah terbukti aman
+
     Tanggapi dalam format JSON dengan struktur berikut:
     {
       "isSafe": boolean,
